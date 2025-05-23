@@ -1,0 +1,44 @@
+# Ignore everything by default
+*
+
+# Allow specific file types
+!.gitignore
+!*.ipynb
+!*.config
+!*.py
+!*.R
+!*.r
+!*.sh
+!*.Rmd
+!*.rmd
+!*.txt
+!*.yaml
+
+
+# Allow directories (required to traverse folders and add files selectively)
+!*/
+
+# Ignore all .ipynb_checkpoints folders
+.ipynb_checkpoints/
+
+# Ignore some other folders
+
+input/
+bash_scripts/input/
+analysis_notes/
+test_data/
+human_refs/
+snakemake_logs/
+snakemake_7_7_0_env/
+snakemale_7_7_0_env/
+snakemake_7_7_0_env.tar.gz
+
+
+# ignore powerpoints
+*.pptx
+
+# Ignore specific folders
+r_objects/
+python_objects/
+temp/
+atacseqQC_outputs/

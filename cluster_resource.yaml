@@ -1,0 +1,79 @@
+__default__:
+  nCPUs: "{threads}"  # Set the number of threads dynamically based on the rule
+  memory: 40000       # 40 GB memory per job to accommodate the paired-end files
+  maxTime: "12:00:00" # 12 hours per job, may adjust based on specific tasks
+  name: "{rule}.{wildcards}" # Dynamic job name based on rule and wildcards. Make sure to override this in rules using all samples in a run. 
+  output: "snakemake_logs/{rule}.{wildcards}.out"    # Standard output file default for each job
+  error:  "snakemake_logs/{rule}.{wildcards}.err"    # Standard error file default for each job
+
+adapter_trim:
+  # For adapter trimming (e.g., using Cutadapt or Fastp)
+  nCPUs: 8          # Use 8 threads for trimming
+  memory: 40000       # 32 GB memory for trimming 50 million reads
+  maxTime: "8:00:00"  # 4 hours per sample for trimming
+  output: "snakemake_logs/adapter_trim/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/adapter_trim/{rule}.{wildcards.sample}.err"
+
+fastqc:
+  output: "snakemake_logs/fastqc/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/fastqc/{rule}.{wildcards.sample}.err"
+
+ALIGN:
+  # For alignment (e.g., using BWA or Bowtie2)
+  nCPUs: 16          # Use 32 threads for alignment
+  memory: 64000       # 64 GB memory for alignment of 50 million reads
+  maxTime: "16:00:00"  # 6 hours per sample for alignment
+  output: "snakemake_logs/ALIGN/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/ALIGN/{rule}.{wildcards.sample}.err"
+  
+samtools_MAPQ_filter:
+  output: "snakemake_logs/samtools_MAPQ_filter/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/samtools_MAPQ_filter/{rule}.{wildcards.sample}.err"
+
+samtools_remove_chrM:
+  output: "snakemake_logs/samtools_remove_chrM/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/samtools_remove_chrM/{rule}.{wildcards.sample}.err"
+
+remove_duplicates:
+  output: "snakemake_logs/remove_duplicates/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/remove_duplicates/{rule}.{wildcards.sample}.err"
+
+adjust_RSS:
+  output: "snakemake_logs/adjust_RSS/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/adjust_RSS/{rule}.{wildcards.sample}.err"
+
+bigwig:
+  output: "snakemake_logs/bigwig/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/bigwig/{rule}.{wildcards.sample}.err"
+
+call_peaks_macs2:
+  output: "snakemake_logs/call_peaks_macs2/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/call_peaks_macs2/{rule}.{wildcards.sample}.err"
+
+consensus_peaks:
+  output: "snakemake_logs/consensus_peaks/{rule}.out"
+  error:  "snakemake_logs/consensus_peaks/{rule}.err"
+
+tss_enrichment:
+  output: "snakemake_logs/tss_enrichment/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/tss_enrichment/{rule}.{wildcards.sample}.err"
+
+fingerprint_plot:
+  output: "snakemake_logs/fingerprint_plot/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/fingerprint_plot/{rule}.{wildcards.sample}.err"
+
+fragment_length_distribution:
+  output: "snakemake_logs/fragment_length_distribution/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/fragment_length_distribution/{rule}.{wildcards.sample}.err"
+
+frip_score:
+  output: "snakemake_logs/frip_score/{rule}.{wildcards.sample}.out"
+  error:  "snakemake_logs/frip_score/{rule}.{wildcards.sample}.err"
+
+merge_frip_scores:
+  output: "snakemake_logs/merge_frip_scores/{rule}.out"
+  error:  "snakemake_logs/merge_frip_scores/{rule}.err"
+  
+featureCounts: 
+  output: "snakemake_logs/featureCounts/{rule}.out"
+  error:  "snakemake_logs/featureCounts/{rule}.err"

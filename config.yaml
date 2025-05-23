@@ -1,0 +1,118 @@
+################################################
+################################################
+# CONFIGURATION FILE FOR THE ATAC-SEQ PIPELINE #
+################################################
+################################################
+
+# This format allows comments and is therefore easier to work with than the json format we used before.
+# Quotation marks are optional for strings. Make sure to put ": " (that is, hyphen space) as separator
+
+##################
+# SECTION general #
+##################
+par_general:
+
+  # STRING. Absolute path to the output directory.  
+  # outdir: "/fast/AG_Bunina/Yusuf/Project_Endothelial_and_Stroke/Datasets/HCMEC/output"
+
+# CHANGE HERE to the directory that snakemake pipeline will save the outputs.
+
+  outdir: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/test_snakemake_new"
+
+  # STRING. Absolute path to the input directory containing renamed FASTQ files. 
+
+  # input_dir: "/fast/AG_Bunina/Yusuf/Project_Endothelial_and_Stroke/Datasets/HCMEC/BULK_ATAC_Snakemake_pipeline-main/test_data"
+
+# CHANGE HERE to the directory that snakemake pipeline will look for the input files.
+  
+  input_dir: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/test_data"
+
+###################
+# SECTION samples #
+###################
+# List of sample IDs used in the pipeline. These correspond to input FASTQ files.
+
+# samples: [D01_TEST, D02_TEST]
+
+samples: [D19, D20]
+
+adapters:
+
+  # STRING. Path to the Trimmomatic JAR file used for adapter trimming.
+  trimmomaticLoc: "/fast/AG_Bunina/software_2/Trimmomatic-0.39/trimmomatic-0.39.jar"
+
+  # STRING. Path to the adapter sequence file used by Trimmomatic (Nextera adapters for paired-end reads).
+  trim_adapt: "/fast/AG_Bunina/software_2/Trimmomatic-0.39/adapters/NexteraPE-PE.fa"
+
+########################
+# SECTION trimming #
+########################
+par_trimming:
+
+  # STRING. ILLUMINACLIP parameters for Trimmomatic: seed mismatches:palindrome clip threshold:simple clip threshold:min adapter length:keep both reads.
+  ILLUMINACLIP_par: "1:30:4:1:true"
+
+  # INTEGER. Removes low quality bases from the end of reads if below this quality.
+  TRAILING: 3
+
+  # INTEGER. Minimum read length to keep after trimming.
+  MINLEN: 20
+
+  # STRING. Base quality encoding used in the input FASTQ files (phred33 or phred64).
+  phred: "phred33"
+
+#####################
+# SECTION align #
+#####################
+par_align:
+
+  # STRING. Path to the Bowtie2 genome index base for alignment.
+  GENOMELOC: "/fast/AG_Bunina/annotations/hg38/GRCh38_noalt_as/GRCh38_noalt_as"
+
+  # INTEGER. Number of threads to use for alignment.
+  ParProcess : 6
+
+  # INTEGER. Maximum fragment length for paired-end read alignment (used by Bowtie2).
+  WindowSearchPE : 2000
+  
+#####################################
+# SECTION post-alignment processing #
+#####################################
+par_postalign:
+ 
+  # INTEGER. Minimum mapping quality score to keep reads.
+  MAPQ : 10
+    
+  # STRING. CIGAR string filtering — e.g., remove reads with specific operations like deletions ("D").
+  CIGrem : "D"
+
+  # STRING. If "yes", temporary files from intermediate steps will be retained.
+  KEEP_TMP : "yes"
+
+  # STRING. Path to the Java binary (used to run Picard tools).
+  PicardLoc : "/fast/AG_Bunina/Daria/ATAC/old_pipeline/jdk-17.0.6/bin/java"
+
+  # STRING. Validation level for Picard's SortSam tool (controls error reporting for SAM file structure).
+  ValidationStringencySortSam : "LENIENT"
+
+  # STRING. Validation level for Picard's MarkDuplicates tool (as above).
+  ValidationStringencyMarkDuplicates : "LENIENT"
+
+#######################################
+# SECTION post-alignment QC ###########
+
+par_postalign_qc:
+
+  macs2_loc : "/fast/AG_Bunina/software_2/macs2_env/bin/python /fast/AG_Bunina/software_2/macs2_env/bin/macs2"
+
+ # long name of file below: ensembl_tss_GRCh38.107.chr_prefixed.sorted.bed
+  tss_bed_file: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/human_refs/ensembl_tss_GRCh38.107.bed"
+
+# info about the origin of hg38 blacklisted regions:
+
+# Downloaded on 0.7.05.25 at 18:00 PM.
+
+# https://github.com/Boyle-Lab/Blacklist/blob/master/lists/hg38-blacklist.v2.bed.gz
+    
+  blacklist_bed_file: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/human_refs/hg38-blacklist.v2.bed"
+  
