@@ -20,7 +20,7 @@ export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"                                # 
 
 # All parameters and paths are defined here (UPDATE TO YOUR PATH!!):
 
-params_file="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/params.sh"
+params_file="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test/params.sh"
 
 . ${params_file} 
 
@@ -35,5 +35,11 @@ params_file="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/params.sh
 
 # CHANGE HERE to the directory that contains the pipeline scripts.
 
-. "/fast/AG_Bunina/Yusuf/Project_Endothelial_and_Stroke/Datasets/HCMEC/bunina_lab_atac/runSnakemakeWrapper.sh"  
 # Run a wrapper script that internally executes Snakemake with the loaded parameters
+
+wrapper_file="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test/runSnakemakeWrapper.sh"
+
+. ${wrapper_file} 
+
+# . "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/runSnakemakeWrapper.sh"  
+

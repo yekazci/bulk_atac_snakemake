@@ -4,25 +4,25 @@
 
 # CHANGE THESE PARAMETERS, NOT EXCEED ONE LINE:
 
-main_dir="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac"  # Main working directory for the ATAC-seq pipeline
+main_dir="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test"  # Main working directory for the ATAC-seq pipeline
 
 # set below true for a dryrun:
-dryRun=true  # Set to true to perform a Snakemake dry-run without executing jobs
 
-#####################
+dryRun=true                                                           # Set to true to perform a Snakemake dry-run without executing jobs
+
+# Input folder:
 
 input_dir="${main_dir}/test_data"  # Directory containing the input FASTQ files
-outdir="${main_dir}/test_snakemake_new"  # Output directory for results
+
+# Input names:
 
 samples=(D19 D20)  # Sample identifiers used in the pipeline (e.g., D19_R1.fastq)
 
-# Configuration files and Snakemake parameters
-configFile="${main_dir}/config.yaml"  # Snakemake configuration YAML file
-clusterConfig="${main_dir}/cluster_resource.yaml"  # Cluster resources YAML for job submission
-snakefile="${main_dir}/Snakefile_PE.sh"  # The main Snakemake workflow file
-nCores=8  # Number of CPU cores to allocate for Snakemake execution
+################################### OPTIONAL: CHANGE CAREFULLY ##########################
 
-################################### OPTIONAL ##########################
+# output_folder
+
+outdir="${main_dir}/test_snakemake_new"  # Output directory for results
 
 # Optional tool and reference paths
 trimmomaticLoc="/fast/AG_Bunina/software_2/Trimmomatic-0.39/trimmomatic-0.39.jar"  # Trimmomatic JAR file path
@@ -31,7 +31,14 @@ GENOMELOC="/fast/AG_Bunina/annotations/hg38/GRCh38_noalt_as/GRCh38_noalt_as"  # 
 tss_bed_file="${main_dir}/human_refs/ensembl_tss_GRCh38.107.bed"  # BED file with transcription start sites
 blacklist_bed_file="${main_dir}/human_refs/hg38-blacklist.v2.bed"  # BED file with blacklisted regions
 
+nCores=8  # Number of CPU cores to allocate for Snakemake execution
+
 ############# DO NOT CHANGE BELOW ########################
+
+# Configuration files and Snakemake parameters
+configFile="${main_dir}/config.yaml"  # Snakemake configuration YAML file
+clusterConfig="${main_dir}/cluster_resource.yaml"  # Cluster resources YAML for job submission
+snakefile="${main_dir}/Snakefile_PE.sh"  # The main Snakemake workflow file
 
 # --- Override parameters in second_file (params.sh) ---
 
@@ -74,14 +81,28 @@ fi
 
 ###############################################################################
 
+# File to modify
 third_file="${main_dir}/runSnakefile.sh"  # Snakemake run script to be updated
 
-# Replace the value of params_file in runSnakefile.sh
+# Replace the value of params_file in third.sh
 if grep -q '^[[:space:]]*params_file=' "$third_file"; then
   sed -i "s|^\([[:space:]]*params_file=\).*|\1\"$second_file\"|" "$third_file"
 else
   echo "params_file=\"$second_file\"" >> "$third_file"
 fi
+
+
+############## use same logic to assign wrapper_file to the fourth_file path:
+
+fourth_file="${main_dir}/runSnakemakeWrapper.sh"  # Wrapper script whose path we want to assign
+
+# Replace the value of wrapper_file in runSnakefile.sh
+if grep -q '^[[:space:]]*wrapper_file=' "$third_file"; then
+  sed -i "s|^\([[:space:]]*wrapper_file=\).*|\1\"$fourth_file\"|" "$third_file"
+else
+  echo "wrapper_file=\"$fourth_file\"" >> "$third_file"
+fi
+
 
 # Modify configuration YAML to reflect new input/output paths and references
 config_file="${main_dir}/config.yaml"

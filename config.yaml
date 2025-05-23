@@ -17,7 +17,7 @@ par_general:
 
 # CHANGE HERE to the directory that snakemake pipeline will save the outputs.
 
-  outdir: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/test_snakemake_new"
+  outdir: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test/test_snakemake_new"
 
   # STRING. Absolute path to the input directory containing renamed FASTQ files. 
 
@@ -25,7 +25,7 @@ par_general:
 
 # CHANGE HERE to the directory that snakemake pipeline will look for the input files.
   
-  input_dir: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/test_data"
+  input_dir: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test/test_data"
 
 ###################
 # SECTION samples #
@@ -106,7 +106,7 @@ par_postalign_qc:
   macs2_loc : "/fast/AG_Bunina/software_2/macs2_env/bin/python /fast/AG_Bunina/software_2/macs2_env/bin/macs2"
 
  # long name of file below: ensembl_tss_GRCh38.107.chr_prefixed.sorted.bed
-  tss_bed_file: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/human_refs/ensembl_tss_GRCh38.107.bed"
+  tss_bed_file: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test/human_refs/ensembl_tss_GRCh38.107.bed"
 
 # info about the origin of hg38 blacklisted regions:
 
@@ -114,5 +114,5 @@ par_postalign_qc:
 
 # https://github.com/Boyle-Lab/Blacklist/blob/master/lists/hg38-blacklist.v2.bed.gz
     
-  blacklist_bed_file: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac/human_refs/hg38-blacklist.v2.bed"
+  blacklist_bed_file: "/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test/human_refs/hg38-blacklist.v2.bed"
   

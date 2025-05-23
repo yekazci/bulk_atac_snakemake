@@ -30,12 +30,13 @@ test_data/
 human_refs/
 snakemake_logs/
 snakemake_7_7_0_env/
-snakemale_7_7_0_env/
 snakemake_7_7_0_env.tar.gz
 
 
 # ignore powerpoints
 *.pptx
+
+slurm_*
 
 # Ignore specific folders
 r_objects/

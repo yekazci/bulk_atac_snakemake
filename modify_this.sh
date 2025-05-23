@@ -4,11 +4,11 @@
 
 # CHANGE THESE PARAMETERS, NOT EXCEED ONE LINE:
 
-main_dir="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac"
+main_dir="/fast/AG_Bunina/Yusuf/ATAC_BULK_snakemake/bunina_lab_atac_test"
 
 # set below true for a dryrun:
 
-dryRun=false
+dryRun=true
 
 #####################
 
@@ -89,6 +89,18 @@ if grep -q '^[[:space:]]*params_file=' "$third_file"; then
   sed -i "s|^\([[:space:]]*params_file=\).*|\1\"$second_file\"|" "$third_file"
 else
   echo "params_file=\"$second_file\"" >> "$third_file"
+fi
+
+
+############## use same logic to assign wrapper_file to the fourth_file path:
+
+fourth_file="${main_dir}/runSnakemakeWrapper.sh"  # Wrapper script whose path we want to assign
+
+# Replace the value of wrapper_file in runSnakefile.sh
+if grep -q '^[[:space:]]*wrapper_file=' "$third_file"; then
+  sed -i "s|^\([[:space:]]*wrapper_file=\).*|\1\"$fourth_file\"|" "$third_file"
+else
+  echo "wrapper_file=\"$fourth_file\"" >> "$third_file"
 fi
 
 
